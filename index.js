@@ -148,7 +148,7 @@ var createBiquadFilter = function createBiquadFilter() {
           
           // Formula: y[n] = x[n] + b1*x[n-1] + b2*x[n-2] - a1*y[n-1] - a2*y[n-2]
           // First biquad
-          y[0] = x + b1 * xi1 + b2 * xi2 - a1 * yi1 - a2 * this.memories[0].yi2;
+          y[0] = x + b1 * xi1 + b2 * xi2 - a1 * yi1 - a2 * yi2;
 
           for(var e = 1; e < this.numberOfCascade; e = e + 1) {
             // Save coefficients in local variables
