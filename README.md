@@ -1,6 +1,6 @@
 # Biquad Filter library
 
-> The Biquad Filter is a JavaScript library that implements a cascade of biquad filters.
+> The Biquad Filter is a JavaScript library implementing a cascade of biquad filters
 
 This library implements a [biquad filter](http://en.wikipedia.org/wiki/Digital_biquad_filter) with the possibility of use a cascade of biquad filters where you can specify the coefficients:
 
