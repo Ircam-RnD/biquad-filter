@@ -56,14 +56,13 @@ var createBiquadFilter = function createBiquadFilter() {
      * Set biquad filter coefficients 
      * @public
      * @param coef Array of biquad coefficients in the following order: gain, firstBiquad b1, firstBiquad b2, firstBiquad a1, firstBiquad a2, secondBiquad b1, secondBIquad b2, etc.
-     * @param optNumberOfCascade Optional Parameter: Number of biquad filters in the cascade. The default value is 1.
      */
     setCoefficients: {
       enumerable: true,
-      value: function(coef, optNumberOfCascade) {
+      value: function(coef) {
         if (coef) {
           // If there is not a number of biquads, we consider that there is only 1 biquad.
-          this.numberOfCascade = optNumberOfCascade || 1;
+          this.numberOfCascade = this.getNumberOfCascadeFilters(coef);
           // Reset coefficients
           this.coefficients = [];
           // Global gain
@@ -88,13 +87,13 @@ var createBiquadFilter = function createBiquadFilter() {
 
     /**
      * Get number of cascade filters
-     * I don't know if this method is useful
-     * @public
+     * @private
      */
     getNumberOfCascadeFilters: {
-      enumerable: true,
-      value: function() {
-        return this.numberOfCascade;
+      enumerable: false,
+      value: function(coef) {
+        var numberOfCascade = (coef.length - 1)/4;
+        return numberOfCascade;
       }
     },
 
