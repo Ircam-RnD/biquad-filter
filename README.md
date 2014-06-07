@@ -1,6 +1,6 @@
 # Biquad Filter library
 
-> The Biquad Filter is a JavaScript library implementing a cascade of biquad filters
+> The Biquad Filter is a JavaScript library that implements a cascade of biquad filters
 
 This library implements a [biquad filter](http://en.wikipedia.org/wiki/Digital_biquad_filter) with the possibility of use a cascade of biquad filters where you can specify the coefficients:
 
@@ -46,7 +46,7 @@ This library can be used, for instance, inside the Web Audio API:
   // Create biquad filter module
   var biquadFilter = createBiquadFilter();
   // Set the coefficients and indicate the number of biquads
-  biquadFilter.setCoefficients(coef, 6);
+  biquadFilter.setCoefficients(coef);
   
   // Load player file
   bufferLoader.load('/examples/snd/breakbeat.wav').then(function(buffer){
@@ -91,7 +91,6 @@ The `binauralFIR` object exposes the following API:
 Method | Description
 --- | ---
 `biquadFilter.setCoefficients(coef, optNumberOfCascade)` | Set the coefficients of the filter. 
-`biquadFilter.getNumberOfCascadeFilters()` | Get the number of biquads in the cascade
 `biquadFilter.process(inputBuffer, outputBuffer)` | Calculate the output of the cascade biquad filter for an inputBuffer. The inputBuffer and the outputBuffer are Arrays with the same length.
 
 
