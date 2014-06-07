@@ -29,7 +29,7 @@
   // Create biquad filter module
   var biquadFilter = createBiquadFilter();
   // Set the coefficients and indicate the number of biquads
-  biquadFilter.setCoefficients(coef, 6);
+  biquadFilter.setCoefficients(coef);
 
   // Load player file
   bufferLoader.load('/examples/snd/breakbeat.wav').then(function(buffer){
