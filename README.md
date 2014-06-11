@@ -90,7 +90,7 @@ The `binauralFIR` object exposes the following API:
 
 Method | Description
 --- | ---
-`biquadFilter.setCoefficients(coef, optNumberOfCascade)` | Set the coefficients of the filter. 
+`biquadFilter.setCoefficients(coef)` | Set the coefficients of the filter. 
 `biquadFilter.process(inputBuffer, outputBuffer)` | Calculate the output of the cascade biquad filter for an inputBuffer. The inputBuffer and the outputBuffer are Arrays with the same length.
 
 
