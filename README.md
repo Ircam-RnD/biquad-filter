@@ -9,12 +9,14 @@ This library implements a [biquad filter](http://en.wikipedia.org/wiki/Digital_b
 One biquad:   H1(z) = -----------------------
                        1 + a1*z^-1 + a2*z^-2
 
-Cascade of biquads:   H(z) = g · H1(z) · H2(z) · ... · Hn(z)   
+Cascade of biquads:   H(z) = g · H1(z) · H2(z) · ... · Hn(z)
 where g is the global gain of the cascade of biquads and n is the number of biquad filters.
 
 ```
 
 ## Example
+
+! Demo in example folder is broken.
 
 This library can be used, for instance, inside the Web Audio API:
 
@@ -42,12 +44,12 @@ This library can be used, for instance, inside the Web Audio API:
   // Connect Audio Nodes
   player.connect(scriptProcessor);
   scriptProcessor.connect(targetNode);
-  
+
   // Create biquad filter module
-  var biquadFilter = createBiquadFilter();
+  var biquadFilter = new BiquadFilter();
   // Set the coefficients and indicate the number of biquads
   biquadFilter.setCoefficients(coef);
-  
+
   // Load player file
   bufferLoader.load('/examples/snd/breakbeat.wav').then(function(buffer){
     player.setBuffer(buffer);
@@ -65,7 +67,7 @@ This library can be used, for instance, inside the Web Audio API:
     // Process the data
     biquadFilter.process(inputBuffer, outputBuffer);
   }
-  
+
 ```
 
 ## Coefficients format
@@ -90,31 +92,9 @@ The `binauralFIR` object exposes the following API:
 
 Method | Description
 --- | ---
-`biquadFilter.setCoefficients(coef)` | Set the coefficients of the filter. 
+`biquadFilter.setCoefficients(coef)` | Set the coefficients of the filter.
 `biquadFilter.process(inputBuffer, outputBuffer)` | Calculate the output of the cascade biquad filter for an inputBuffer. The inputBuffer and the outputBuffer are Arrays with the same length.
 
-
-## Tests
-
-If grunt is not installed
-
-```bash
-$ npm install -g grunt-cli
-```
-
-Install all depencies in the module folder
-
-```bash
-$ npm install
-```
-
-Run the server on 9001 port (you can change the port in the Grunfile.js)
-
-```bash
-$ grunt test
-```
-
-Run the test via the web browser on `http://localhost:9001/tests`
 
 ## License
 

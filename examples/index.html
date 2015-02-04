@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>biquad-filter</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    
+
       <link rel="stylesheet" href="https://rawgit.com/Ircam-RnD/module-boilerplate/master/docs/css/main.css">
-    
-    
-    
+
+
+
       <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
-    
+
       <script src="https://rawgit.com/Ircam-RnD/player/master/player.js"></script>
-    
+
       <script src="https://rawgit.com/Ircam-RnD/buffer-loader/master/buffer-loader.js"></script>
-    
-    
+
+
     <script src="./js/biquad-filter.js"></script>
   </head>
   <body>
@@ -29,7 +29,7 @@
       </ul>
     </nav>
   </header>
-  
+
   <hr>
 
   <section>
@@ -42,7 +42,7 @@
 One biquad:   H1(z) = -----------------------
                        1 + a1*z^-1 + a2*z^-2
 
-Cascade of biquads:   H(z) = g · H1(z) · H2(z) · ... · Hn(z)   
+Cascade of biquads:   H(z) = g · H1(z) · H2(z) · ... · Hn(z)
 where g is the global gain of the cascade of biquads and n is the number of biquad filters.
 </code></pre>
     <script>
@@ -55,8 +55,8 @@ where g is the global gain of the cascade of biquads and n is the number of biqu
   var audioContext = new AudioContext();
   var targetNode = audioContext.destination;
   // Create Audio Nodes
-  var player = createPlayer();
-  var bufferLoader = createBufferLoader();
+  var player = new Player();
+  var bufferLoader = new BufferLoader();
   var scriptProcessor = audioContext.createScriptProcessor(1024, 1, 1);
   // Connect Audio Nodes
   player.connect(scriptProcessor);
@@ -68,7 +68,7 @@ where g is the global gain of the cascade of biquads and n is the number of biqu
   biquadFilter.setCoefficients(coef);
 
   // Load player file
-  bufferLoader.load('./snd/breakbeat.wav').then(function(buffer){
+  bufferLoader.load('./examples/snd/breakbeat.wav').then(function(buffer){
     player.setBuffer(buffer);
     player.enableLoop(true);
     player.start();
@@ -160,13 +160,13 @@ where g is the global gain of the cascade of biquads and n is the number of biqu
 </tbody>
 </table>
 
-    
+
   </section>
 
   <hr>
 
   <footer>
-    
+
   </footer>
   <script>hljs.initHighlightingOnLoad();</script>
   </body>
