@@ -8,15 +8,13 @@
  * @class BiquadFilter
  * @public
  */
-class BiquadFilter {
+ class BiquadFilter {
 
     constructor() {
         this.coefficients = [];
         this.memories = [];
         this.numberOfCascade = 1;
-        this.context = undefined;
         this.resetMemories();
-        return this;
     }
 
     /**
@@ -24,7 +22,7 @@ class BiquadFilter {
      * @public
      * @param coef Array of biquad coefficients in the following order: gain, firstBiquad b1, firstBiquad b2, firstBiquad a1, firstBiquad a2, secondBiquad b1, secondBIquad b2, etc.
      */
-    setCoefficients(coef) {
+     setCoefficients(coef) {
         if (coef) {
             // If there is not a number of biquads, we consider that there is only 1 biquad.
             this.numberOfCascade = this.getNumberOfCascadeFilters(coef);
@@ -32,20 +30,15 @@ class BiquadFilter {
             this.coefficients = [];
             // Global gain
             this.coefficients.g = coef[0];
-            for (var i = 0; i < this.numberOfCascade; i = i + 1) {
-                this.coefficients[i] = {};
+            for (var i = 0; i < this.numberOfCascade; i++) {
                 // Four coefficients for each biquad
-                this.coefficients[i].b1 = coef[1 + i * 4];
-                this.coefficients[i].b2 = coef[2 + i * 4];
-                this.coefficients[i].a1 = coef[3 + i * 4];
-                this.coefficients[i].a2 = coef[4 + i * 4];
+                this.coefficients[i] = {b1: coef[1 + i * 4], b2: coef[2 + i * 4], a1: coef[3 + i * 4], a2: coef[4 + i * 4]};
             }
             // Need to reset the memories after change the coefficients
             this.resetMemories();
             return true;
         } else {
-            console.error("No coefficients are set");
-            return false;
+            throw new Error("No coefficients are set");
         }
     }
 
@@ -53,27 +46,19 @@ class BiquadFilter {
      * Get the number of cascade filters from the list of coefficients
      * @private
      */
-    getNumberOfCascadeFilters(coef) {
-        var numberOfCascade = (coef.length - 1) / 4;
-        return numberOfCascade;
+     getNumberOfCascadeFilters(coef) {
+        return (coef.length - 1) / 4;
     }
 
     /**
      * Reset memories of biquad filters.
      * @public
      */
-    resetMemories() {
-        this.memories = [];
-        this.memories[0] = {};
-        this.memories[0].xi1 = 0;
-        this.memories[0].xi2 = 0;
-        this.memories[0].yi1 = 0;
-        this.memories[0].yi2 = 0;
-
-        for (var i = 1; i < this.numberOfCascade; i = i + 1) {
-            this.memories[i] = {};
-            this.memories[i].yi1 = 0;
-            this.memories[i].yi2 = 0;
+     resetMemories() {
+        this.memories = [{xi1: 0, xi2: 0, yi1: 0, yi2: 0}];
+        // see http://stackoverflow.com/a/19892144
+        for (var i = 1; i < this.numberOfCascade; i++) {
+            this.memories[i] = {yi1: 0, yi2: 0};
         }
     }
 
@@ -83,13 +68,13 @@ class BiquadFilter {
      * @param inputBuffer Array of the same length of outputBuffer
      * @param outputBuffer Array of the same length of inputBuffer
      */
-    process(inputBuffer, outputBuffer) {
+     process(inputBuffer, outputBuffer) {
         var x;
-        var y = []
+        var y = [];
         var b1, b2, a1, a2;
         var xi1, xi2, yi1, yi2, y1i1, y1i2;
 
-        for (var i = 0; i < inputBuffer.length; i = i + 1) {
+        for (var i = 0; i < inputBuffer.length; i++) {
             x = inputBuffer[i];
             // Save coefficients in local variables
             b1 = this.coefficients[0].b1;
@@ -106,7 +91,7 @@ class BiquadFilter {
             // First biquad
             y[0] = x + b1 * xi1 + b2 * xi2 - a1 * yi1 - a2 * yi2;
 
-            for (var e = 1; e < this.numberOfCascade; e = e + 1) {
+            for (var e = 1; e < this.numberOfCascade; e++) {
                 // Save coefficients in local variables
                 b1 = this.coefficients[e].b1;
                 b2 = this.coefficients[e].b2;
@@ -128,7 +113,7 @@ class BiquadFilter {
             this.memories[0].xi2 = this.memories[0].xi1;
             this.memories[0].xi1 = x;
 
-            for (var p = 0; p < this.numberOfCascade; p = p + 1) {
+            for (var p = 0; p < this.numberOfCascade; p++) {
                 this.memories[p].yi2 = this.memories[p].yi1;
                 this.memories[p].yi1 = y[p];
             }

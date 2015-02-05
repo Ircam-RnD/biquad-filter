@@ -14,12 +14,15 @@
   "author": "Arnau Julià <arnau.julia@gmail.com>",
   "license": "BSD-3",
   "devDependencies": {
+    "tac6": "git://github.com/ircam-rnd/tac6.git#master",
+    "chai": "^1.10.0"
   },
   "browserify": {
     "transforms": ["es6ify"]
   },
   "scripts": {
     "bundle": "browserify biquad-filter.es6.js > biquad-filter.js -s 'BiquadFilter' -d -t es6ify",
-    "watch": "nodemon -w biquad-filter.es6.js -x npm run bundle"
+    "watch": "nodemon -w biquad-filter.es6.js -x npm run bundle",
+    "test": "tac6"
   }
 }
