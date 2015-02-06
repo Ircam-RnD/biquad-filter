@@ -12,7 +12,6 @@
 
     constructor() {
         this.coefficients = [];
-        this.memories = [];
         this.numberOfCascade = 1;
         this.resetMemories();
     }
