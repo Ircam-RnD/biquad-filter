@@ -1,5 +1,4 @@
-var chai = require('chai');
-var assert = chai.assert;
+var assert = require('assert');
 var BiquadFilter = require('../biquad-filter.es6.js')
 
 describe("BiquadFilter tests", function() {
@@ -19,7 +18,7 @@ describe("BiquadFilter tests", function() {
         assert.equal(inputCoef[0], coefs.g);
     });
     it('should throw an exception when no coef is set', function(){
-        assert.throw(function() { bf.setCoefficients() }, Error);
+        assert.throws(function() { bf.setCoefficients() }, Error);
     });
     it('should reset memories', function(){
         var memories = [{xi1: 0, xi2: 0, yi1: 0, yi2: 0}, {yi1: 0, yi2: 0}]
