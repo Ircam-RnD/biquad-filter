@@ -16,7 +16,7 @@ where g is the global gain of the cascade of biquads and n is the number of biqu
 
 ## Example
 
-A demo is available in the `examples` folder.
+A working demo for this module can be found [here](https://ircam-rnd.github.io/biquad-filter/) and in the `examples` folder.
 
 ## Coefficients format
 
